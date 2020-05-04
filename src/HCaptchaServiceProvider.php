@@ -40,10 +40,10 @@ class HCaptchaServiceProvider extends ServiceProvider
     {
         $path = __DIR__ . '/config/config.php';
 
-        $this->mergeConfigFrom($path, 'HCaptcha');
+        $this->mergeConfigFrom($path, 'hcaptcha');
 
         if (function_exists('config_path')) {
-            $this->publishes([$path => config_path('HCaptcha.php')]);
+            $this->publishes([$path => config_path('hcaptcha.php')]);
         }
     }
 
@@ -53,7 +53,7 @@ class HCaptchaServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('HCaptcha', function ($app) {
-            if ($app['config']['HCaptcha.server-get-config']) {
+            if ($app['config']['hcaptcha.server-get-config']) {
                 $hCaptcha = \App\Components\CaptchaVerify::hCaptchaGetConfig();
                 return new HCaptcha(
                     $hCaptcha['secret'],
@@ -62,9 +62,9 @@ class HCaptchaServiceProvider extends ServiceProvider
                 );
             } else {
                 return new HCaptcha(
-                    $app['config']['HCaptcha.secret'],
-                    $app['config']['HCaptcha.sitekey'],
-                    $app['config']['HCaptcha.options']
+                    $app['config']['hcaptcha.secret'],
+                    $app['config']['hcaptcha.sitekey'],
+                    $app['config']['hcaptcha.options']
                 );
             }
         });
